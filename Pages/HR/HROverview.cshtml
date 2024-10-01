@@ -1,0 +1,66 @@
+﻿@page
+@model PersoApp.Pages.HROverviewModel
+@{
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-2 mb-3">
+            <h1>ADMIN PAGE</h1>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <a asp-page="CreateEvent">
+                <button class="create-new" style="font-size:17px">
+                    Create new <i class="fa fa-plus"></i>
+                </button>
+            </a>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        EmployeeId
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Salary
+                    </th>
+                    <th>
+                        Absence
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @* @foreach (var item in Model.employees) *@
+                @* { *@
+                    <tr>
+                        <td>
+                            @* @item.EmployeeId *@ Employee Id
+                        </td>
+                        <td>
+                            @* @item.Name *@ Name
+                        </td>
+                        <td>
+                            @* @item.Salary *@ Salary
+                        </td>
+                        <td style="text-align:right">
+                            @* @item.AbsenceInHours *@ Fravær
+                        </td>
+@*                         <td style="text-align:right">
+                            <a asp-page="EditEmployee" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Edit Employee</a>
+                            <a asp-page="DeleteEmployee" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete Employee</a>
+                        </td> *@
+
+                    </tr>
+                @* } *@
+            </tbody>
+        </table>
+    </div>
+</body>
+
