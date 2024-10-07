@@ -1,7 +1,10 @@
+using PersoApp.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<PersoAppDBContext>();
 
 var app = builder.Build();
 

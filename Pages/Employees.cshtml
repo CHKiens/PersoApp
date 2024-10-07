@@ -1,0 +1,41 @@
+﻿@page
+@model PersoApp.Pages.EmployeesModel
+@{
+    ViewData["Title"] = "Employees";
+}
+
+<h1>@ViewData["Title"]</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th> Id </th>
+            <th> Name  </th>
+            <th> Role</th>
+            <th> Salary </th>
+            <th> Location ID </th>
+            <th> City</th>
+            <th> Abscence (hrs) </th>
+            <th> Scheduled hrs</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @*Please Uncomment the code below*@
+
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Employees)
+            {
+                <tr>
+                    <td> @item.EmployeeId </td>
+                    <td>  @item.Name </td>
+                    <td>@item.Role  </td>
+                    <td> @item.Salary </td>
+                    <td> @item.LocationId </td>
+                    <td> @item.Location.City</td>
+                    <td> @item.AbsenceInHours </td>
+                    <td> @item.ScheduledHours </td>
+                </tr>
+            }
+        }
+</table>
