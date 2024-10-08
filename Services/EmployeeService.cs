@@ -16,5 +16,9 @@ namespace PersoApp.Services {
             _Context.Add(employee);
             _Context.SaveChanges();
         }
+        public List<Employee> GetAllEmployees()
+        {
+           return _Context.Employees.ToList();
+        }
     }
 }

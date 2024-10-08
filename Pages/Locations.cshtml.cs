@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PersoApp.Interfaces;
 using PersoApp.Models;
 
 namespace PersoApp.Pages
@@ -7,16 +8,16 @@ namespace PersoApp.Pages
     public class LocationsModel : PageModel
     {
 
-        public PersoAppDBContext db;
-
-        public LocationsModel(PersoAppDBContext db)
+        
+        public ILocation repo;
+        public LocationsModel( ILocation repo)
         {
-            this.db = db;
+            this.repo = repo;
         }
         public IEnumerable<Location> Locations { get; set; } = new List<Location>();
         public void OnGet()
         {
-            Locations = db.Locations;
+            Locations = repo.GetAllLocations();
         }
     }
 }
