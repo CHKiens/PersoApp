@@ -27,7 +27,7 @@ public partial class Employee
     public double Salary { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime DateOfEmployment { get; set; }
+    public DateTime DateOfEmployment { get ; set; }
 
     [Column("LocationID")]
     public int LocationId { get; set; }
@@ -39,4 +39,7 @@ public partial class Employee
     [ForeignKey("LocationId")]
     [InverseProperty("Employees")]
     public virtual Location Location { get; set; }
+
+    
+
 }

@@ -21,8 +21,6 @@
     </thead>
     <tbody>
 
-        @*Please Uncomment the code below*@
-
         @if (Model != null)
         {
             @foreach (var item in Model.Employees)
@@ -32,7 +30,7 @@
                     <td>  @item.Name </td>
                     <td>@item.Role  </td>
                     <td> @item.Salary </td>
-                    <td> @item.DateOfEmployment</td>
+                    <td> @item.DateOfEmployment.ToShortDateString()</td>
                     <td> @item.LocationId </td>
                     <td> @item.Location.City</td>
                     <td> @item.AbsenceInHours </td>
