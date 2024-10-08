@@ -1,0 +1,62 @@
+﻿@page
+@model PersoApp.Pages.CreateEmployeeModel
+@{
+}
+<h1>New Employee</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="employee.Name" class="control-label"></label>
+                <input asp-for="employee.Name" class="form-control" />
+                <span asp-validation-for="employee.Name" class="text-danger"></span> 
+            </div>
+            <div class="form-group">
+                <label asp-for="employee.Role" class="control-label"></label>
+                <input asp-for="employee.Role" class="form-control" />
+                <span asp-validation-for="employee.Role" class="text-danger"></span> 
+            </div>
+
+            <div class="form-group">
+                <label asp-for="employee.DateOfEmployment" class="control-label"></label>
+                <input asp-for="employee.DateOfEmployment" class="form-control" type="date" />
+                <span asp-validation-for="employee.DateOfEmployment" class="text-danger"></span> 
+            </div>
+
+            <div class="form-group">
+                <label asp-for="employee.Salary" class="control-label"></label>
+                <input asp-for="employee.Salary" class="form-control" /> 
+                <span asp-validation-for="employee.Salary" class="text-danger"></span> 
+            </div>
+
+            <label for="location">Vælg en lokation:</label>
+            <div class="form-group">
+                <label asp-for="employee.LocationId">Location</label>
+                <select asp-for="employee.LocationId" class="form-control">
+                    <option value="">-- Select a Location --</option>
+                    @foreach (var location in Model.locations)  
+                    {
+                        <option value="@location.Id">@location.City</option> 
+                    }
+                </select>
+                <span asp-validation-for="employee.LocationId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="employee.AbsenceInHours" class="control-label"></label>
+                <input asp-for="employee.AbsenceInHours" class="form-control" />
+                <span asp-validation-for="employee.AbsenceInHours" class="text-danger"></span> 
+            </div>
+            <div class="form-group">
+                <label asp-for="employee.ScheduledHours" class="control-label"></label>
+                <input asp-for="employee.ScheduledHours" class="form-control" />
+                <span asp-validation-for="employee.ScheduledHours" class="text-danger"></span> 
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
