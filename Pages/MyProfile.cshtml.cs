@@ -12,7 +12,6 @@ namespace PersoApp.Pages
         public int? Id { get; set; }
         public PersoAppDBContext DB { get; }
         public Employee Employee { get; set; }
-
         public MyProfileModel(PersoAppDBContext dB)
         {
             DB = dB;
@@ -20,23 +19,21 @@ namespace PersoApp.Pages
 
         public void OnGet()
         {
-            // Retrieve the user ID from the session
+
             Id = HttpContext.Session.GetInt32("Id");
 
             if (Id.HasValue)
             {
-                // Try to find the employee by ID
                 Employee = DB.Employees.Find(Id.Value);
+                Employee.Location = DB.Locations.Find(Employee.LocationId);
 
                 if (Employee == null)
                 {
-                    // Handle case where Employee is not found
                     RedirectToPage("/Error");
                 }
             }
             else
             {
-                // User is not logged in, redirect to login page
                 RedirectToPage("/Login");
             }
 

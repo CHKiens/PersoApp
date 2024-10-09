@@ -16,6 +16,7 @@ namespace PersoApp.Pages
         public IEnumerable<Location> Locations { get; set; } = new List<Location>();
         public void OnGet()
         {
+
             Locations = db.Locations;
         }
     }
