@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PersoApp.Interfaces;
 using PersoApp.Models;
 
-namespace PersoApp.Pages
+namespace PersoApp.Pages.EmployeePages
 {
     public class CreateEmployeeModel : PageModel
     {
         private IEmployee repository;
         private ILocation locationRepo;
         [BindProperty]
-        public Employee employee {  get; set; }
+        public Employee employee { get; set; }
         public List<Location> locations { get; set; }
 
 
@@ -31,9 +31,10 @@ namespace PersoApp.Pages
             {
                 return BadRequest(ModelState);
             }
-            
+
             repository.AddEmployee(employee);
-            return RedirectToPage("Employees");
+            return RedirectToPage("/Employees");
+
         }
     }
 }

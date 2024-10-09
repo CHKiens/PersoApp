@@ -1,0 +1,39 @@
+﻿@page
+@model PersoApp.Pages.LocationsPages.EditLocationModel
+@{
+}
+<h1>Edit location</h1>
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@Model.Location.Id" />
+            <div class="form-group">
+                <label asp-for="@Model.Location.City" class="control-label">City</label>
+                <input asp-for="@Model.Location.City" class="form-control" />
+                <span asp-validation-for="@Model.Location.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Location.Address" class="control-label">Address</label>
+                <input asp-for="@Model.Location.Address" class="form-control" />
+                <span asp-validation-for="@Model.Location.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Location.Zipcode" class="control-label"></label>
+                <input asp-for="@Model.Location.Zipcode" class="form-control" />
+                <span asp-validation-for="@Model.Location.Zipcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Location.Country" class="control-label">Country</label>
+                <input asp-for="@Model.Location.Country" class="form-control" />
+                <span asp-validation-for="@Model.Location.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <a asp-page="index">Back to List</a>
+</div>

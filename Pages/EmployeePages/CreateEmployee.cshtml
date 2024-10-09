@@ -1,5 +1,5 @@
 ﻿@page
-@model PersoApp.Pages.CreateEmployeeModel
+@model PersoApp.Pages.EmployeePages.CreateEmployeeModel
 @{
 }
 <h1>New Employee</h1>
@@ -28,8 +28,6 @@
                 <input asp-for="employee.Salary" class="form-control" /> 
                 <span asp-validation-for="employee.Salary" class="text-danger"></span> 
             </div>
-
-            <label for="location">Vælg en lokation:</label>
             <div class="form-group">
                 <label asp-for="employee.LocationId">Location</label>
                 <select asp-for="employee.LocationId" class="form-control">
@@ -58,5 +56,10 @@
         </form>
     </div>
 </div>
+<div>
+    <a asp-page="/Employees">Go back</a>
+</div>
+
+
 
 

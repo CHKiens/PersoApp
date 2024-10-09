@@ -1,8 +1,13 @@
 ﻿@page
+@using PersoApp.Interfaces;
 @model PersoApp.Pages.LocationsModel
+@inject IEmployee repo;
 @{
     ViewData["Title"] = "Locations";
 }
+<p>
+    <a asp-page="/LocationsPages/CreateLocation">New location</a>
+</p>
 
 <h1>@ViewData["Title"]</h1>
 <table class="table">
@@ -13,6 +18,9 @@
             <th> City</th>
             <th> Zipcode </th>
             <th> Country </th>
+            <th>Total staff count</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +36,15 @@
                     <td> @item.City</td>
                     <td> @item.Zipcode</td>
                     <td> @item.Country</td>
+                    <td> @repo.GetAllEmployees().Count(e => e.LocationId == item.Id) </td>
+                    <td>
+                        <a asp-page="/LocationsPages/EditLocation" asp-route-id="@item.Id"> Edit </a>
+                    </td>
+                    <td>
+                        <a asp-page="/LocationsPages/DeleteLocation" asp-route-id="@item.Id"> Delete </a>
+                    </td>
                 </tr>
+                
             }
         }
 </table>
