@@ -7,8 +7,6 @@ namespace PersoApp.Pages
 {
     public class LocationsModel : PageModel
     {
-
-        
         public ILocation repo;
         public LocationsModel( ILocation repo)
         {
@@ -17,6 +15,7 @@ namespace PersoApp.Pages
         public IEnumerable<Location> Locations { get; set; } = new List<Location>();
         public void OnGet()
         {
+            Locations = db.Locations;
             Locations = repo.GetAllLocations();
         }
     }
