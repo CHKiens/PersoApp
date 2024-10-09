@@ -1,4 +1,6 @@
+using PersoApp.Interfaces;
 using PersoApp.Models;
+using PersoApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<PersoAppDBContext>();
 builder.Services.AddSession();
+builder.Services.AddScoped<IEmployee, EmployeeService>();
+builder.Services.AddScoped<ILocation, LocationService>();
+
 
 var app = builder.Build();
 
