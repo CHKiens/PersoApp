@@ -3,7 +3,7 @@ using PersoApp.Interfaces;
 using PersoApp.Models;
 
 namespace PersoApp.Services {
-    public class EmployeeService :IEmployee {
+    public class EmployeeService : IEmployee {
 
         private PersoAppDBContext _Context;
         public EmployeeService(PersoAppDBContext context)
@@ -19,6 +19,11 @@ namespace PersoApp.Services {
         public List<Employee> GetAllEmployees()
         {
            return _Context.Employees.ToList();
+        }
+
+        public Employee GetEmployeeById(int? id)
+        {
+            return _Context.Employees.FirstOrDefault();
         }
     }
 }

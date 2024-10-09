@@ -4,17 +4,21 @@ using Microsoft.AspNetCore.Http;
 using PersoApp.Models;
 using PersoApp.Repository;
 using System.Collections.Generic;
+using PersoApp.Services;
+using PersoApp.Interfaces;
 
 namespace PersoApp.Pages
 {
     public class MyProfileModel : PageModel
     {
         public int? Id { get; set; }
-        public PersoAppDBContext DB { get; }
+        private IEmployee eRepo;
+        private ILocation iRepo;
         public Employee Employee { get; set; }
-        public MyProfileModel(PersoAppDBContext dB)
+        public MyProfileModel(IEmployee eRepo, ILocation iRepo)
         {
-            DB = dB;
+            this.eRepo = eRepo;
+            this.iRepo = iRepo;
         }
 
         public void OnGet()
@@ -24,8 +28,8 @@ namespace PersoApp.Pages
 
             if (Id.HasValue)
             {
-                Employee = DB.Employees.Find(Id.Value);
-                Employee.Location = DB.Locations.Find(Employee.LocationId);
+                Employee = eRepo.GetEmployeeById(Id);
+                Employee.Location = iRepo.GetLocation(Employee.LocationId);
 
                 if (Employee == null)
                 {

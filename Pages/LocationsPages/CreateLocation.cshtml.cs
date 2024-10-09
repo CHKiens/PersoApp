@@ -2,17 +2,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PersoApp.Interfaces;
 using PersoApp.Models;
+using PersoApp.Services;
 
 namespace PersoApp.Pages.LocationsPages
 {
     public class CreateLocationModel : PageModel
     {
-        private ILocation locationRepo;
+        private ILocation repo;
         [BindProperty]
         public Location Location { get; set; }
         public CreateLocationModel(ILocation locationRepo)
         {
-            this.locationRepo = locationRepo;
+            this.repo = locationRepo;
         }
         public void OnGet()
         {
@@ -24,7 +25,7 @@ namespace PersoApp.Pages.LocationsPages
                 return BadRequest(ModelState);
             }
 
-            locationRepo.AddLocation(location);
+            repo.AddLocation(location);
             return RedirectToPage("/Locations");
         }
     }

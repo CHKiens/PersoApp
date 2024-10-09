@@ -4,6 +4,7 @@ namespace PersoApp.Repository
 {
     public class UserRepository
     {
+        // Laver liste med brugere. Brugernavn og kode er hardcoded her, men kunne sagtens kobles på databasen, evt. integreres med vores employee liste, m. mail som login.
         public static List<User> Users = new List<User>
     {
         new User { Id = 1, Username = "hr", Password = "password", Role = "HR" },

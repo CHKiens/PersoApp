@@ -2,20 +2,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PersoApp.Interfaces;
 using PersoApp.Models;
+using PersoApp.Services;
 
 namespace PersoApp.Pages
 {
     public class LocationsModel : PageModel
     {
-        public ILocation repo;
-        public LocationsModel( ILocation repo)
+        public ILocation repo { get; set; }
+        public List<Location> Locations { get; set; }
+        public LocationsModel(ILocation repo)
         {
             this.repo = repo;
         }
-        public IEnumerable<Location> Locations { get; set; } = new List<Location>();
         public void OnGet()
         {
-            Locations = db.Locations;
             Locations = repo.GetAllLocations();
         }
     }
