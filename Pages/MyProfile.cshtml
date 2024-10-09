@@ -1,0 +1,42 @@
+﻿@page
+@model PersoApp.Pages.MyProfileModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Employee != null) // Corrected condition
+{
+    <div class="profile-info">
+        <h2>User Information</h2>
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Employee.EmployeeId ?? "N/A"</dd>
+
+            <dt class="col-sm-3">Name</dt>
+            <dd class="col-sm-9">@Model.Employee.Name ?? "N/A"</dd>
+
+            <dt class="col-sm-3">Role</dt>
+            <dd class="col-sm-9">@Model.Employee.Role ?? "N/A"</dd>
+
+            <dt class="col-sm-3">Salary</dt>
+            <dd class="col-sm-9">@Model.Employee.Salary ?? "N/A"</dd>
+
+            <dt class="col-sm-3">Date of Employment</dt>
+            <dd class="col-sm-9">@Model.Employee.DateOfEmployment.ToShortDateString() ?? "N/A"</dd>
+
+            <dt class="col-sm-3">Location</dt>
+            <dd class="col-sm-9">@Model.Employee.Location.City ?? "N/A"</dd>
+
+            <dt class="col-sm-3">Absence in Hours</dt>
+            <dd class="col-sm-9">@Model.Employee.AbsenceInHours ?? "N/A"</dd>
+
+            <dt class="col-sm-3">Scheduled Hours</dt>
+            <dd class="col-sm-9">@Model.Employee.ScheduledHours ?? "N/A"</dd>
+        </dl>
+    </div>
+}
+else
+{
+    <p>No employee data available.</p>
+}

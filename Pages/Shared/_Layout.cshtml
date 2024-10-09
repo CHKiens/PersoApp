@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PersoApp.styles.css" asp-append-version="true" />
 </head>
+
+@{
+    var userRole = Context.Session.GetString("UserRole");
+    var id = Context.Session.GetString("Id");
+    var isLoggedIn = Context.Session.GetString("IsLoggedIn") == "true";
+}
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -25,12 +32,31 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Employees">Employees</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Locations">Locations</a>
-                        </li>
+                        @if(isLoggedIn)
+                        {
+                            if (userRole == "HR")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Employees">Employees</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Locations">Locations</a>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/MyProfile">My Profile</a>
+                            </li>
+                        }
+                        @if (isLoggedIn)
+                        {
+                            <form asp-page="/Logout" method="post" class="ms-2">
+                                <button type="submit" class="btn btn-outline-danger">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-page="/Login" class="btn btn-outline-primary">Login</a>
+                        }
                     </ul>
                 </div>
             </div>
