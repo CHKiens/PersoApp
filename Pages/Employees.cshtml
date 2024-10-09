@@ -5,6 +5,14 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+
+<form method="get">
+    <select name="SelectedLocationId" asp-for="SelectedLocationId" asp-items="@(new SelectList(Model.Locations, "Id", "City"))">
+        <option value="">All Locations</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
 <table class="table">
     <thead>
         <tr>

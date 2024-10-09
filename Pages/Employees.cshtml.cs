@@ -10,15 +10,29 @@ namespace PersoApp.Pages
 
         public PersoAppDBContext db;
 
+        [BindProperty(SupportsGet = true)]
+        public int? SelectedLocationId { get; set; }
+
+        public List<Employee> Employees { get; set; }
+        public List<Location> Locations { get; set; }
         public EmployeesModel(PersoAppDBContext db)
         {
             this.db = db;
         }
-        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
+
         public void OnGet()
         {
-            Employees = db.Employees.Include(e => e.Location).ToList();
-                
+            Locations = db.Locations.ToList();
+            if (SelectedLocationId > 0)
+            {
+                Employees = db.Employees
+                    .Where(e => e.LocationId == SelectedLocationId)
+                    .ToList();
+            }
+            else
+            {
+                Employees = db.Employees.ToList();
+            }
         }
     }
 }
