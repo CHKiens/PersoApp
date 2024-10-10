@@ -9,7 +9,10 @@ namespace PersoApp.Pages
 {
     public class EmployeesModel : PageModel
     {
-        // public PersoAppDBContext db; Tænker ikke vi behøver reference til DB da det gerne skulle hentes gennem vores service. Tester lige når jeg kommer hjem
+
+       // public PersoAppDBContext db; Tænker ikke vi behøver reference til DB da det gerne skulle hentes gennem vores service. Tester lige når jeg kommer hjem
+       
+       //private readonly PersoAppDBContext db;
         public IEmployee eRepo;
         public ILocation iRepo;
 
@@ -24,8 +27,7 @@ namespace PersoApp.Pages
         {
             this.iRepo = iRepo;
             this.eRepo = eRepo;
-          //  this.db = db;
-            
+          //  this.db = db;         
         }
 
         // Metode til at hente medarbejderdata, når siden indlæses
