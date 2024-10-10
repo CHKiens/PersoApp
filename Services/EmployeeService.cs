@@ -116,16 +116,17 @@ namespace PersoApp.Services {
                 Console.WriteLine($"Fejl under PDF-generering: {ex.Message}");
                 throw;
             }
+        }
 
         public void AddEmployee(Employee employee)
         {
-            _Context.Add(employee);
-            _Context.SaveChanges();
+            _dbContext.Add(employee);
+            _dbContext.SaveChanges();
         }
 
         public Employee GetEmployeeById(int? id)
         {
-            return _Context.Employees.FirstOrDefault();
+            return _dbContext.Employees.FirstOrDefault();
         }
     }
 }

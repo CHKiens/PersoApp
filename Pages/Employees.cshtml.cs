@@ -5,28 +5,45 @@ using PersoApp.Interfaces;
 using PersoApp.Models;
 using PersoApp.Services; // Tilføj reference til EmployeeService
 
-
 namespace PersoApp.Pages
 {
     public class EmployeesModel : PageModel
     {
+        // Dependency Injection af EmployeeService og IEmployee interface
         private readonly PersoAppDBContext db;
         private readonly EmployeeService _employeeService;
+        public IEmployee eRepo;
+        public ILocation iRepo;
 
+        [BindProperty(SupportsGet = true)]
+        public int? SelectedLocationId { get; set; }
 
-        // Dependency Injection af EmployeeService og DbContext
-        public EmployeesModel(PersoAppDBContext db, EmployeeService employeeService)
+        public List<Employee> Employees { get; set; } = new List<Employee>();
+        public List<Location> Locations { get; set; }
+
+        // Constructor til Dependency Injection
+        public EmployeesModel(IEmployee eRepo, ILocation iRepo, PersoAppDBContext db, EmployeeService employeeService)
         {
+            this.iRepo = iRepo;
+            this.eRepo = eRepo;
             this.db = db;
             _employeeService = employeeService;
         }
 
-        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
-
         // Metode til at hente medarbejderdata, når siden indlæses
         public void OnGet()
         {
-            Employees = db.Employees.Include(e => e.Location).ToList();
+            Locations = iRepo.GetAllLocations();
+            if (SelectedLocationId > 0)
+            {
+                Employees = eRepo.GetAllEmployees()
+                    .Where(e => e.LocationId == SelectedLocationId)
+                    .ToList();
+            }
+            else
+            {
+                Employees = eRepo.GetAllEmployees();
+            }
         }
 
         // Metode til at generere rapporter (Excel eller PDF)
@@ -66,33 +83,7 @@ namespace PersoApp.Pages
             {
                 Console.WriteLine($"Fejl under generering af rapport: {ex.Message}");
                 return StatusCode(500, $"Der opstod en fejl: {ex.Message}");
-        public IEmployee eRepo;
-        public ILocation iRepo;
-        [BindProperty(SupportsGet = true)]
-        public int? SelectedLocationId { get; set; }
-
-        public List<Employee> Employees { get; set; }
-        public List<Location> Locations { get; set; }
-        public EmployeesModel(IEmployee eRepo, ILocation iRepo)
-        {
-            this.iRepo = iRepo;
-            this.eRepo = eRepo;
-        }
-
-        public void OnGet()
-        {
-            Locations = iRepo.GetAllLocations();
-            if (SelectedLocationId > 0)
-            {
-                Employees = eRepo.GetAllEmployees()
-                    .Where(e => e.LocationId == SelectedLocationId)
-                    .ToList();
-            }
-            else
-            {
-                Employees = eRepo.GetAllEmployees();
             }
         }
     }
 }
-
