@@ -9,9 +9,7 @@ namespace PersoApp.Pages
 {
     public class EmployeesModel : PageModel
     {
-        // Dependency Injection af EmployeeService og IEmployee interface
-        private readonly PersoAppDBContext db;
-        
+        // public PersoAppDBContext db; Tænker ikke vi behøver reference til DB da det gerne skulle hentes gennem vores service. Tester lige når jeg kommer hjem
         public IEmployee eRepo;
         public ILocation iRepo;
 
@@ -22,11 +20,11 @@ namespace PersoApp.Pages
         public List<Location> Locations { get; set; }
 
         // Constructor til Dependency Injection
-        public EmployeesModel(IEmployee eRepo, ILocation iRepo, PersoAppDBContext db)
+        public EmployeesModel(IEmployee eRepo, ILocation iRepo)// PersoAppDBContext db) 
         {
             this.iRepo = iRepo;
             this.eRepo = eRepo;
-            this.db = db;
+          //  this.db = db;
             
         }
 
