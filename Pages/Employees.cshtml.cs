@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using PersoApp.Interfaces;
 using PersoApp.Models;
 using PersoApp.Services; // Tilføj reference til EmployeeService
+
 
 namespace PersoApp.Pages
 {
@@ -10,6 +12,7 @@ namespace PersoApp.Pages
     {
         private readonly PersoAppDBContext db;
         private readonly EmployeeService _employeeService;
+
 
         // Dependency Injection af EmployeeService og DbContext
         public EmployeesModel(PersoAppDBContext db, EmployeeService employeeService)
@@ -63,6 +66,31 @@ namespace PersoApp.Pages
             {
                 Console.WriteLine($"Fejl under generering af rapport: {ex.Message}");
                 return StatusCode(500, $"Der opstod en fejl: {ex.Message}");
+        public IEmployee eRepo;
+        public ILocation iRepo;
+        [BindProperty(SupportsGet = true)]
+        public int? SelectedLocationId { get; set; }
+
+        public List<Employee> Employees { get; set; }
+        public List<Location> Locations { get; set; }
+        public EmployeesModel(IEmployee eRepo, ILocation iRepo)
+        {
+            this.iRepo = iRepo;
+            this.eRepo = eRepo;
+        }
+
+        public void OnGet()
+        {
+            Locations = iRepo.GetAllLocations();
+            if (SelectedLocationId > 0)
+            {
+                Employees = eRepo.GetAllEmployees()
+                    .Where(e => e.LocationId == SelectedLocationId)
+                    .ToList();
+            }
+            else
+            {
+                Employees = eRepo.GetAllEmployees();
             }
         }
     }

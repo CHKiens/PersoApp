@@ -1,4 +1,4 @@
-﻿@page
+@page
 @model PersoApp.Pages.EmployeesModel
 @{
     ViewData["Title"] = "Employees";
@@ -34,6 +34,50 @@
                 <td> @item.AbsenceInHours </td>
                 <td> @item.ScheduledHours </td>
             </tr>
+=======
+
+<form method="get">
+    <select name="SelectedLocationId" asp-for="SelectedLocationId" asp-items="@(new SelectList(Model.Locations, "Id", "City"))">
+        <option value="">All Locations</option>
+    </select>
+    <button type="submit">Filter</button>
+</form>
+
+<p>
+    <a asp-page="/EmployeePages/CreateEmployee">New employee</a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th> Id </th>
+            <th> Name  </th>
+            <th> Role</th>
+            <th> Salary </th>
+            <th> Date of Employment</th>
+            <th> Location ID </th>
+            <th> City</th>
+            <th> Abscence % </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model != null)
+        {
+            @foreach (var item in Model.Employees)
+            {
+                <tr>
+                    <td> @item.EmployeeId </td>
+                    <td>  @item.Name </td>
+                    <td>@item.Role  </td>
+                    <td> @item.Salary </td>
+                    <td> @item.DateOfEmployment.ToShortDateString()</td>
+                    <td> @item.LocationId </td>
+                    <td> @item.Location.City</td>
+                    <td> @((item.AbsenceInHours / item.ScheduledHours*100 ).ToString("F2")) </td>
+                </tr>
+            }
         }
     }
     </tbody>

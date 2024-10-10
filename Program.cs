@@ -1,11 +1,17 @@
+using PersoApp.Interfaces;
 using PersoApp.Models;
 using PersoApp.Services; // Sørg for at importere EmployeeService
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<PersoAppDBContext>();
+builder.Services.AddSession();
+builder.Services.AddScoped<IEmployee, EmployeeService>();
+builder.Services.AddScoped<ILocation, LocationService>();
+
 
 // Registrer EmployeeService som en service
 builder.Services.AddScoped<EmployeeService>();
@@ -24,6 +30,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 
