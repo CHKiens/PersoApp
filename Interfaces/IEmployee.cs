@@ -6,5 +6,7 @@ namespace PersoApp.Interfaces {
         public List<Employee> GetAllEmployees();
 
         public Employee GetEmployeeById(int? id);
+        public void GenerateExcelReport(List<Employee> employees);
+        public void GeneratePdfReport(List<Employee> employees);
     }
 }

@@ -11,7 +11,7 @@ namespace PersoApp.Pages
     {
         // Dependency Injection af EmployeeService og IEmployee interface
         private readonly PersoAppDBContext db;
-        private readonly EmployeeService _employeeService;
+        
         public IEmployee eRepo;
         public ILocation iRepo;
 
@@ -22,12 +22,12 @@ namespace PersoApp.Pages
         public List<Location> Locations { get; set; }
 
         // Constructor til Dependency Injection
-        public EmployeesModel(IEmployee eRepo, ILocation iRepo, PersoAppDBContext db, EmployeeService employeeService)
+        public EmployeesModel(IEmployee eRepo, ILocation iRepo, PersoAppDBContext db)
         {
             this.iRepo = iRepo;
             this.eRepo = eRepo;
             this.db = db;
-            _employeeService = employeeService;
+            
         }
 
         // Metode til at hente medarbejderdata, når siden indlæses
@@ -53,12 +53,12 @@ namespace PersoApp.Pages
             {
                 Console.WriteLine($"Modtog anmodning om at generere rapport i format: {format}");
 
-                var employees = _employeeService.GetAllEmployees();
+                var employees = eRepo.GetAllEmployees();
 
                 if (format == "excel")
                 {
                     Console.WriteLine("Genererer Excel-rapport...");
-                    _employeeService.GenerateExcelReport(employees);
+                    eRepo.GenerateExcelReport(employees);
 
                     // Brug den korrekte sti til at læse Excel-filen fra wwwroot
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "MedarbejderRapport.xlsx");
@@ -69,7 +69,7 @@ namespace PersoApp.Pages
                 else if (format == "pdf")
                 {
                     Console.WriteLine("Genererer PDF-rapport...");
-                    _employeeService.GeneratePdfReport(employees);
+                    eRepo.GeneratePdfReport(employees);
 
                     // Brug den korrekte sti til at læse PDF-filen fra wwwroot
                     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "MedarbejderRapport.pdf");
