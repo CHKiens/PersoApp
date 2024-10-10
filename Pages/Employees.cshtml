@@ -5,37 +5,70 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+
 <table class="table">
     <thead>
-        <tr>
-            <th> Id </th>
-            <th> Name  </th>
-            <th> Role</th>
-            <th> Salary </th>
-            <th> Location ID </th>
-            <th> City</th>
-            <th> Abscence (hrs) </th>
-            <th> Scheduled hrs</th>
-        </tr>
+    <tr>
+        <th> Id </th>
+        <th> Name  </th>
+        <th> Role</th>
+        <th> Salary </th>
+        <th> Location ID </th>
+        <th> City</th>
+        <th> Abscence (hrs) </th>
+        <th> Scheduled hrs</th>
+    </tr>
     </thead>
     <tbody>
-
-        @*Please Uncomment the code below*@
-
-        @if (Model != null)
+    @if (Model != null)
+    {
+        @foreach (var item in Model.Employees)
         {
-            @foreach (var item in Model.Employees)
-            {
-                <tr>
-                    <td> @item.EmployeeId </td>
-                    <td>  @item.Name </td>
-                    <td>@item.Role  </td>
-                    <td> @item.Salary </td>
-                    <td> @item.LocationId </td>
-                    <td> @item.Location.City</td>
-                    <td> @item.AbsenceInHours </td>
-                    <td> @item.ScheduledHours </td>
-                </tr>
-            }
+            <tr>
+                <td> @item.EmployeeId </td>
+                <td>  @item.Name </td>
+                <td>@item.Role  </td>
+                <td> @item.Salary </td>
+                <td> @item.LocationId </td>
+                <td> @item.Location.City</td>
+                <td> @item.AbsenceInHours </td>
+                <td> @item.ScheduledHours </td>
+            </tr>
         }
+    }
+    </tbody>
 </table>
+
+<!-- Knapper til at generere rapporter -->
+<div class="report-buttons">
+    <button class="btn btn-primary" onclick="generateReport('excel')">Eksporter til Excel</button>
+    <button class="btn btn-secondary" onclick="generateReport('pdf')">Eksporter til PDF</button>
+</div>
+
+<!-- JavaScript til at håndtere rapportgenerering -->
+<script type="text/javascript">
+    function generateReport(format) {
+        console.log("Sender anmodning om at generere rapport i format: " + format);
+        
+        // Brug fetch til at hente filen
+        fetch(`/Employees?handler=GenerateReport&format=` + format)
+            .then(response => {
+                console.log("Serverens svar:", response);
+                return response.blob();
+            })
+            .then(blob => {
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+
+                // Hvis formatet er "excel", brug den korrekte filtype og udvidelse
+                const fileName = format === 'excel' ? 'MedarbejderRapport.xlsx' : 'MedarbejderRapport.pdf';
+                a.download = fileName;
+                
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            })
+            .catch(error => console.error('Fejl ved generering af rapport:', error));
+    }
+</script>

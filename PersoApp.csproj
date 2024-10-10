@@ -10,6 +10,8 @@
     <None Include="efpt.config.json.user" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="5.8.3" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.8" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
