@@ -1,6 +1,7 @@
 using PersoApp.Interfaces;
 using PersoApp.Models;
-using PersoApp.Services;
+using PersoApp.Services; // Sørg for at importere EmployeeService
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,9 @@ builder.Services.AddSession();
 builder.Services.AddScoped<IEmployee, EmployeeService>();
 builder.Services.AddScoped<ILocation, LocationService>();
 
+
+// Registrer EmployeeService som en service
+builder.Services.AddScoped<EmployeeService>();
 
 var app = builder.Build();
 
@@ -32,5 +36,19 @@ app.UseSession();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.Run();
+
+
+
+// Tilføj Razor Pages
+builder.Services.AddRazorPages();
+
+
+
+
+app.UseRouting();
+
+app.MapRazorPages(); // Sørg for, at Razor Pages routing er aktiveret
 
 app.Run();
