@@ -2,9 +2,36 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    ViewData["showNavBar"] = false;
+    Layout = null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+<link rel="stylesheet" href="/css/login.css">
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form method="post">
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit">Login</button>
+            @if (Model.ErrorMessage != null)
+            {
+                <div class="error-message">@Model.ErrorMessage</div>
+            }
+        </form>
+    </div>
+
+</body>
+
+
+
+
+

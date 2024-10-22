@@ -23,23 +23,23 @@ namespace PersoApp.Pages
         public List<Location> Locations { get; set; }
 
         // Constructor til Dependency Injection
-        public EmployeesModel(IEmployee eRepo, ILocation iRepo)// PersoAppDBContext db) 
+        public EmployeesModel(IEmployee eRepo, ILocation iRepo)
         {
             this.iRepo = iRepo;
             this.eRepo = eRepo;
-          //  this.db = db;         
+              
         }
 
         // Metode til at hente medarbejderdata, når siden indlæses
-        public void OnGet()
+        public void OnGet(string SearchTerm)
         {
-            Locations = iRepo.GetAllLocations();
-            if (SelectedLocationId > 0)
+
+            if (!string.IsNullOrEmpty(SearchTerm))
             {
                 Employees = eRepo.GetAllEmployees()
-                    .Where(e => e.LocationId == SelectedLocationId)
-                    .ToList();
+                    .Where(e => e.Name.ToLower().Contains(SearchTerm.ToLower()) || e.Location.City.ToLower().Contains(SearchTerm.ToLower())).ToList();
             }
+
             else
             {
                 Employees = eRepo.GetAllEmployees();
