@@ -6,60 +6,85 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<form method="get">
-    <select name="SelectedLocationId" asp-for="SelectedLocationId" asp-items="@(new SelectList(Model.Locations, "Id", "City"))">
-        <option value="">All Locations</option>
-    </select>
-    <button type="submit">Filter</button>
-</form>
-
-<p>
-    <a asp-page="/EmployeePages/CreateEmployee">New employee</a>
-</p>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th> Id </th>
-        <th> Name </th>
-        <th> Role </th>
-        <th> Salary </th>
-        <th> Date of Employment </th>
-        <th> City </th>
-        <th> Absence % </th>
-        <th> Actions </th> 
-    </tr>
-    </thead>
-    <tbody>
-    @if (Model.Employees != null)
-    {
-    @foreach (var item in Model.Employees)
-    {
-    <tr>
-        <td> @item.EmployeeId </td>
-        <td> @item.Name </td>
-        <td> @item.Role </td>
-        <td> @item.Salary </td>
-        <td> @item.DateOfEmployment.ToShortDateString() </td>
-        <td> @item.Location.City </td>
-        <td> @((item.AbsenceInHours / item.ScheduledHours * 100).ToString("F2")) % </td>
-        <td>
-            <!-- Slet-knap -->
-            <form method="post" asp-page-handler="Delete" asp-route-id="@item.EmployeeId" onsubmit="return confirm('Er du sikker på, at du vil slette denne medarbejder?');">
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-        </td>
-    </tr>
-    }
-    }
-    </tbody>
-</table>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
 
-<div class="report-buttons">
-    <button class="btn btn-primary" onclick="generateReport('excel')">Eksporter til Excel</button>
-    <button class="btn btn-secondary" onclick="generateReport('pdf')">Eksporter til PDF</button>
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+            <a asp-page="/EmployeePages/CreateEmployee" class="btn btn-success">New employee</a>
+        </div>
+
+        <form method="get" class="d-flex ms-auto">
+            <input type="text" name="SearchTerm" placeholder="Søg efter navn eller by" class="form-control me-2" />
+            <button type="submit" class="btn btn-primary">Søg</button>
+        </form>
+    </div>
+
+
+    <div class="card-body">
+        <table class="table">
+
+            <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Name </th>
+                    <th> Role </th>
+                    <th> Salary </th>
+                    <th> Date of Employment </th>
+                    <th> City </th>
+                    <th> Absence % </th>
+                    <th> Actions </th>
+                </tr> 
+            </thead>
+            <tbody>
+                @if (Model.Employees != null)
+                {
+                    @foreach (var item in Model.Employees)
+                    {
+                        <tr>
+                            <td> @item.EmployeeId </td>
+                            <td> @item.Name </td>
+                            <td> @item.Role </td>
+                            <td> @item.Salary </td>
+                            <td> @item.DateOfEmployment.ToShortDateString() </td>
+                            <td> @item.Location.City </td>
+                            <td> @((item.AbsenceInHours / item.ScheduledHours * 100).ToString("F2")) % </td>
+                            <td>
+                                <form method="post" asp-page-handler="Delete" asp-route-id="@item.EmployeeId" onsubmit="return confirm('Er du sikker på, at du vil slette denne medarbejder?');">
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer d-flex align-items-center">
+        <div class="report-buttons ms-auto">
+            <button class="btn btn-success" onclick="generateReport('excel')">
+                Eksporter til Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-primary" onclick="generateReport('pdf')">
+                Eksporter til PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+
+    </div>
+
+
 </div>
+
+
+
+
 
 
 <script type="text/javascript">

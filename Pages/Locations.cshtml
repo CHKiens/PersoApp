@@ -5,46 +5,61 @@
 @{
     ViewData["Title"] = "Locations";
 }
-<p>
-    <a asp-page="/LocationsPages/CreateLocation">New location</a>
-</p>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-<h1>@ViewData["Title"]</h1>
-<table class="table">
-    <thead>
-        <tr>
-            <th> Id </th>
-            <th> Adress </th>
-            <th> City</th>
-            <th> Zipcode </th>
-            <th> Country </th>
-            <th>Total staff count</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<style>
+    a {
+        text-decoration: none; /* Fjerner understregning fra alle links */
+    }
+
+</style>
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <div>
+            <a asp-page="/EmployeePages/Location" class="btn btn-success">New Location</a>
+        </div>
+    </div>
 
 
-        @if (Model != null)
-        {
-            @foreach (var item in Model.Locations)
-            {
+    <div class="card-body">
+        <table class="table">
+
+            <thead>
                 <tr>
-                    <td> @item.Id </td>
-                    <td> @item.Address</td>
-                    <td> @item.City</td>
-                    <td> @item.Zipcode</td>
-                    <td> @item.Country</td>
-                    <td> @repo.GetAllEmployees().Count(e => e.LocationId == item.Id) </td>
-                    <td>
-                        <a asp-page="/LocationsPages/EditLocation" asp-route-id="@item.Id"> Edit </a>
-                    </td>
-                    <td>
-                        <a asp-page="/LocationsPages/DeleteLocation" asp-route-id="@item.Id"> Delete </a>
-                    </td>
+                    <th> Id </th>
+                    <th> Adress </th>
+                    <th> City</th>
+                    <th> Zipcode </th>
+                    <th> Country </th>
+                    <th>Total staff count</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
-                
-            }
-        }
-</table>
+            </thead>
+            <tbody>
+                @if (Model.Locations != null)
+                {
+                    @foreach (var item in Model.Locations)
+                    {
+                        <tr>
+                            <td> @item.Id </td>
+                            <td> @item.Address</td>
+                            <td> @item.City</td>
+                            <td> @item.Zipcode</td>
+                            <td> @item.Country</td>
+                            <td> @repo.GetAllEmployees().Count(e => e.LocationId == item.Id) </td>
+                            <td>
+                                <a asp-page="/LocationsPages/EditLocation" asp-route-id="@item.Id" class="btn-sm btn-primary"> Edit </a>
+                            </td>
+                            <td>
+                                <a asp-page="/LocationsPages/DeleteLocation" asp-route-id="@item.Id" class="btn-sm btn-danger"> Delete </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

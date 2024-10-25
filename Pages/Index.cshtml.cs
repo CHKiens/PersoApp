@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PersoApp.Repository;
 
 namespace PersoApp.Pages
 {
@@ -11,11 +12,31 @@ namespace PersoApp.Pages
         {
             _logger = logger;
         }
+        [BindProperty]
+        public string Username { get; set; }
 
-        public void OnGet()
+        [BindProperty]
+        public string Password { get; set; }
+
+        public string ErrorMessage { get; set; }
+        public IActionResult OnGet()
         {
-
-
+            return Page();
         }
+
+        public IActionResult OnPost()
+        {
+            var user = UserRepository.ValidateUser(Username, Password);
+            if (user != null)
+            {
+                HttpContext.Session.SetString("UserRole", user.Role);
+                HttpContext.Session.SetString("IsLoggedIn", "true");
+                HttpContext.Session.SetInt32("Id", user.Id);
+                return RedirectToPage("/Employees");
+            }
+            ErrorMessage = "Invalid username or password.";
+            return Page();
+        }
+
     }
 }
