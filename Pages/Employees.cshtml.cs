@@ -85,5 +85,10 @@ namespace PersoApp.Pages
                 return StatusCode(500, $"Der opstod en fejl: {ex.Message}");
             }
         }
+        public IActionResult OnPost(int id)
+        {
+            eRepo.DeleteEmployee(id);
+            return RedirectToPage(new { SearchTerm = string.Empty });
+        }
     }
 }
