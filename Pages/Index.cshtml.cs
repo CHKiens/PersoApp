@@ -32,7 +32,15 @@ namespace PersoApp.Pages
                 HttpContext.Session.SetString("UserRole", user.Role);
                 HttpContext.Session.SetString("IsLoggedIn", "true");
                 HttpContext.Session.SetInt32("Id", user.Id);
-                return RedirectToPage("/Employees");
+
+                if (user.Role == "HR")
+                {
+                    return RedirectToPage("/Employees");
+                }
+                else
+                {
+                    return RedirectToPage("/MyProfile");
+                }
             }
             ErrorMessage = "Invalid username or password.";
             return Page();
