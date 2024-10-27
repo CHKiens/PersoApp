@@ -8,6 +8,8 @@
 
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 
@@ -36,7 +38,10 @@
                     <th> Date of Employment </th>
                     <th> City </th>
                     <th> Absence % </th>
-                    <th> Actions </th>
+                    <th> Edit</th>
+                    <th> Delete </th>
+                    
+
                 </tr> 
             </thead>
             <tbody>
@@ -53,9 +58,14 @@
                             <td> @item.Location.City </td>
                             <td> @((item.AbsenceInHours / item.ScheduledHours * 100).ToString("F2")) % </td>
                             <td>
+                                <a asp-page="/EmployeePages/Edit" asp-route-id="@item.EmployeeId" class="btn btn-primary">
+                                    <i class="fa-solid fa-user-pen" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                            <td>
                                 <form method="post" asp-page-handler="Delete" asp-route-id="@item.EmployeeId" onsubmit="return confirm('Er du sikker på, at du vil slette denne medarbejder?');">
                                     <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                        <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>
                             </td>

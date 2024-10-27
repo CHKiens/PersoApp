@@ -8,5 +8,6 @@ namespace PersoApp.Interfaces {
         public void GenerateExcelReport(List<Employee> employees);
         public void GeneratePdfReport(List<Employee> employees);
         public void DeleteEmployee(int id);
+        void EditEmployee(Employee employee);
     }
 }

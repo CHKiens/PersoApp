@@ -53,7 +53,17 @@ namespace PersoApp.Services {
 
         public Employee GetEmployeeById(int? id)
         {
-            return _dbContext.Employees.FirstOrDefault();
+            if (id == null)
+            {
+                return null;
+            }
+
+            return _dbContext.Employees.FirstOrDefault(e => e.EmployeeId == id);
+        }
+        public void EditEmployee(Employee employee)
+        {
+            _dbContext.Update(employee);
+            _dbContext.SaveChanges();
         }
     }
 
